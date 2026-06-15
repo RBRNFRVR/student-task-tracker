@@ -15,8 +15,10 @@ public class User {
     private String email;
     private String major;
     private String studentId;
-    private String year;
     private String password;
+
+    @Column(name = "student_year")
+    private String year;
 
     public User() {}
 
@@ -38,9 +40,9 @@ public class User {
     public String getStudentId() { return studentId; }
     public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public String getYear() { return year; }
-    public void setYear(String year) { this.year = year; }
-
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getYear() { return year; }
+    public void setYear(String year) { this.year = year; }
 }
