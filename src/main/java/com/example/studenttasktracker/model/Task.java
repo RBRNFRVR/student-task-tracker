@@ -2,6 +2,8 @@ package com.example.studenttasktracker.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -12,9 +14,9 @@ public class Task {
     private Long id;
 
     private String title;
-    private String courseName;
-    private LocalDate dueDate;
     private String description;
+    private LocalDate dueDate;
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private Priority priority;
@@ -26,16 +28,15 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Task() {}
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
-    public Task(String title, String courseName, LocalDate dueDate,
-                String description, Priority priority, Status status) {
-        this.title = title;
-        this.courseName = courseName;
-        this.dueDate = dueDate;
-        this.description = description;
-        this.priority = priority;
-        this.status = status;
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private List<TaskComment> comments;
+
+    public Task() {
+        this.createdAt = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
@@ -44,14 +45,14 @@ public class Task {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
-    public String getCourseName() { return courseName; }
-    public void setCourseName(String courseName) { this.courseName = courseName; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     public LocalDate getDueDate() { return dueDate; }
     public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
     public Priority getPriority() { return priority; }
     public void setPriority(Priority priority) { this.priority = priority; }
@@ -61,4 +62,10 @@ public class Task {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+    public Course getCourse() { return course; }
+    public void setCourse(Course course) { this.course = course; }
+
+    public List<TaskComment> getComments() { return comments; }
+    public void setComments(List<TaskComment> comments) { this.comments = comments; }
 }
