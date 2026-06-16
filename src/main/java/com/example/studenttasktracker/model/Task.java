@@ -28,6 +28,16 @@ public class Task {
 
     public Task() {}
 
+    public Task(String title, String courseName, LocalDate dueDate,
+                String description, Priority priority, Status status) {
+        this.title = title;
+        this.courseName = courseName;
+        this.dueDate = dueDate;
+        this.description = description;
+        this.priority = priority;
+        this.status = status;
+    }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
