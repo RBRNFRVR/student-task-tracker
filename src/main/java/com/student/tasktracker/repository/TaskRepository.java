@@ -1,6 +1,6 @@
-package com.example.studenttasktracker.repository;
+package com.student.tasktracker.repository;
 
-import com.example.studenttasktracker.model.Task;
+import com.student.tasktracker.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

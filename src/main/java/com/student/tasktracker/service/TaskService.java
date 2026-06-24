@@ -1,7 +1,7 @@
-package com.example.studenttasktracker.service;
+package com.student.tasktracker.service;
 
-import com.example.studenttasktracker.model.Task;
-import com.example.studenttasktracker.repository.TaskRepository;
+import com.student.tasktracker.entity.Task;
+import com.student.tasktracker.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
