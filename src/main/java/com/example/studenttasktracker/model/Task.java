@@ -2,6 +2,8 @@ package com.example.studenttasktracker.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tasks")
@@ -12,9 +14,9 @@ public class Task {
     private Long id;
 
     private String title;
-    private String courseName;
-    private LocalDate dueDate;
     private String description;
+    private LocalDate dueDate;
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
     private Priority priority;
@@ -26,7 +28,9 @@ public class Task {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Task() {}
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -34,14 +38,14 @@ public class Task {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
 
-    public String getCourseName() { return courseName; }
-    public void setCourseName(String courseName) { this.courseName = courseName; }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
     public LocalDate getDueDate() { return dueDate; }
     public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
     public Priority getPriority() { return priority; }
     public void setPriority(Priority priority) { this.priority = priority; }
