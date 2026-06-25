@@ -32,13 +32,6 @@ public class Task {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
-    private List<TaskComment> comments;
-
-    public Task() {
-        this.createdAt = LocalDateTime.now();
-    }
-
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -62,10 +55,4 @@ public class Task {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
-
-    public Course getCourse() { return course; }
-    public void setCourse(Course course) { this.course = course; }
-
-    public List<TaskComment> getComments() { return comments; }
-    public void setComments(List<TaskComment> comments) { this.comments = comments; }
 }

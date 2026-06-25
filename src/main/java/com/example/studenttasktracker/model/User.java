@@ -1,7 +1,6 @@
 package com.example.studenttasktracker.model;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,10 +16,9 @@ public class User {
     private String major;
     private String studentId;
     private String password;
-    private String academicYear;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Task> tasks;
+    @Column(name = "student_year")
+    private String year;
 
     public User() {}
 
@@ -45,9 +43,6 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getAcademicYear() { return academicYear; }
-    public void setAcademicYear(String academicYear) { this.academicYear = academicYear; }
-
-    public List<Task> getTasks() { return tasks; }
-    public void setTasks(List<Task> tasks) { this.tasks = tasks; }
+    public String getYear() { return year; }
+    public void setYear(String year) { this.year = year; }
 }
