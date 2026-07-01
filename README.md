@@ -46,3 +46,16 @@ The workflow runs on:
 - Pull requests into `dev`
 
 Semantic release runs only on `main`.
+
+## Features
+
+• Add school tasks or assignments
+• Set due dates
+• Organize them by class
+• Mark them complete
+• View upcoming deadlines
+
+
+## About
+
+Many students struggle to keep track of assignments because their information is often spread across different places. Students may use notebooks, emails, calendars, or memory to track work, which can lead to missed deadlines and stress. It becomes harder to know which task should be completed first and on time. Our goal is to create one simple system where students can organize school tasks to help students manage deadlines, priorities, and task progress.
