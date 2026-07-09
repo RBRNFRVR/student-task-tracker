@@ -75,7 +75,6 @@ async function cycleStatus(id, nextStatus) {
     }
 }
 
-//  SUBJECTS RENDERING
 function renderSubjects() {
     const el = document.getElementById('subjects-grid');
     if (subjects.length === 0) {
@@ -259,7 +258,6 @@ async function performDelete(type, id) {
     }
 }
 
-// ===== MODAL UTILITIES =====
 function closeModal(id) {
     document.getElementById(id).classList.add('hidden');
 }
@@ -268,7 +266,7 @@ function closeModalOnOverlay(e, id) {
     if (e.target.id === id) closeModal(id);
 }
 
-// ===== FORMATTING HELPERS =====
+
 function formatDue(isoStr) {
     if (!isoStr) return null;
     const due = new Date(isoStr);
