@@ -3,41 +3,22 @@ package com.student.tasktracker.dto;
 import com.student.tasktracker.entity.Subject;
 
 public class SubjectResponse {
-
-    private final Long id;
-    private final String name;
-    private final String color;
-    private final int taskCount;
-
-    private SubjectResponse(Long id, String name, String color, int taskCount) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-        this.taskCount = taskCount;
-    }
+    private Long id;
+    private String name;
+    private String color;
+    private int taskCount;
 
     public static SubjectResponse from(Subject subject) {
-        return new SubjectResponse(
-                subject.getId(),
-                subject.getName(),
-                subject.getColor(),
-                subject.getTasks().size()
-        );
+        SubjectResponse r = new SubjectResponse();
+        r.id = subject.getId();
+        r.name = subject.getName();
+        r.color = subject.getColor();
+        r.taskCount = subject.getTasks().size();
+        return r;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public int getTaskCount() {
-        return taskCount;
-    }
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getColor() { return color; }
+    public int getTaskCount() { return taskCount; }
 }
