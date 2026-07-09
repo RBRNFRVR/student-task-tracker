@@ -1,22 +1,20 @@
 # Student Task Tracker
 
-## About the Project
+Student Task Tracker is a web-based application that helps college students keep track of assignments, subjects, and deadlines in one place. The goal of this project is to make it easier for students to stay organized and manage their school work.
 
-Student Task Tracker is a web application that helps college students organize their assignments, subjects, and deadlines. Instead of keeping track of everything on paper or using multiple apps, students can manage all of their coursework in one place.
-
-This project was created for our **BCS430 Senior Project** at **Farmingdale State College**. We built the application using **Spring Boot** for the backend and **HTML, CSS, and JavaScript** for the frontend.
+This project was developed for the BCS430 Senior Project at Farmingdale State College.
 
 ---
 
 # Team Members
 
-| Name | Contribution |
-|------|--------------|
+| Team Member | Contribution |
+|-------------|--------------|
 | Joseph | Project setup, UserRepository, SecurityConfig, UserService, HTML |
 | Anmol | User Entity, TaskRepository, TaskRequest, TaskService, CSS |
 | Jeremy | Task Entity, SubjectRepository, SubjectRequest, SubjectService, CSS |
 | Jesse | Subject Entity, TaskResponse, AuthController, TaskController, JavaScript |
-| Prakash | README, SubjectResponse, SubjectController, JavaScript for Task and Subject CRUD |
+| Prakash | README, SubjectResponse, SubjectController, JavaScript for Task & Subject CRUD |
 
 ---
 
@@ -34,36 +32,36 @@ This project was created for our **BCS430 Senior Project** at **Farmingdale Stat
 
 ---
 
-# Main Features
+# Features
 
 ### User Authentication
 - Register a new account
 - Login and logout
-- Secure password encryption using BCrypt
-- Spring Security authentication
+- Password encryption using BCrypt
+- Secure authentication with Spring Security
 
 ### Task Management
-- Create tasks
-- Edit tasks
+- Add new tasks
+- Edit existing tasks
 - Delete tasks
-- Set priority (High, Medium, Low)
-- Update task status
+- Set task priority (High, Medium, Low)
+- Track task status
 - Assign tasks to subjects
-- Add due dates
-- Filter and search tasks
+- Set due dates
+- Search and filter tasks
 
 ### Subject Management
-- Add new subjects
+- Create subjects
 - Edit subjects
 - Delete subjects
-- Assign colors to each subject
-- View the number of tasks for every subject
+- Assign colors to subjects
+- View the number of tasks in each subject
 
 ### Dashboard
-- Personalized welcome message
-- View task statistics
+- Personalized greeting
+- View total tasks
+- See completed and incomplete tasks
 - Display upcoming assignments
-- Quick overview of completed and pending work
 
 ---
 
@@ -73,20 +71,18 @@ This project was created for our **BCS430 Senior Project** at **Farmingdale Stat
 
 Before running the project, make sure you have:
 
-- Java 17 or later
-- Maven 3.6 or later
+- Java 17 or newer
+- Maven 3.6 or newer
 
 ## Running the Project
 
-Clone the repository and navigate to the project folder.
-
-Run the following command:
+Open the project folder and run:
 
 ```bash
 mvn spring-boot:run
 ```
 
-Once the application starts, open your browser and visit:
+After the application starts, open your browser and go to:
 
 ```
 http://localhost:8080
@@ -94,13 +90,12 @@ http://localhost:8080
 
 ---
 
-# First Time Using the Application
+# Using the Application
 
 1. Register a new account.
 2. Login using your account.
-3. Create your subjects.
-4. Add tasks for each subject.
-5. Track your assignments using the dashboard.
+3. Add your subjects.
+4. Start creating and managing your tasks.
 
 ---
 
@@ -108,114 +103,100 @@ http://localhost:8080
 
 ```
 src
-└── main
-    ├── java
-    │   └── com.student.tasktracker
-    │       ├── config
-    │       ├── controller
-    │       ├── dto
-    │       ├── entity
-    │       ├── repository
-    │       ├── service
-    │       └── TaskTrackerApplication.java
-    │
-    └── resources
-        ├── static
-        │   ├── css
-        │   ├── js
-        │   └── index.html
-        └── application.properties
+├── main
+│   ├── java
+│   │   └── com.student.tasktracker
+│   │       ├── config
+│   │       ├── controller
+│   │       ├── dto
+│   │       ├── entity
+│   │       ├── repository
+│   │       ├── service
+│   │       └── TaskTrackerApplication.java
+│   └── resources
+│       ├── static
+│       │   ├── css
+│       │   ├── js
+│       │   └── index.html
+│       └── application.properties
 ```
 
 ---
 
-# REST API Endpoints
+# REST API
 
 ## Authentication
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /api/auth/register | Register a new user |
-| POST | /api/auth/login | Login |
-| POST | /api/auth/logout | Logout |
-| GET | /api/auth/me | Get current user |
+| Method | Endpoint |
+|---------|----------|
+| POST | /api/auth/register |
+| POST | /api/auth/login |
+| POST | /api/auth/logout |
+| GET | /api/auth/me |
 
 ## Tasks
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/tasks | Get all tasks |
-| POST | /api/tasks | Create a task |
-| PUT | /api/tasks/{id} | Update a task |
-| DELETE | /api/tasks/{id} | Delete a task |
-| GET | /api/tasks/summary | Get task summary |
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/tasks |
+| POST | /api/tasks |
+| PUT | /api/tasks/{id} |
+| DELETE | /api/tasks/{id} |
+| GET | /api/tasks/summary |
 
 ## Subjects
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /api/subjects | Get all subjects |
-| POST | /api/subjects | Create a subject |
-| PUT | /api/subjects/{id} | Update a subject |
-| DELETE | /api/subjects/{id} | Delete a subject |
+| Method | Endpoint |
+|---------|----------|
+| GET | /api/subjects |
+| POST | /api/subjects |
+| PUT | /api/subjects/{id} |
+| DELETE | /api/subjects/{id} |
 
 ---
 
 # Database
 
-This project uses an **H2 file-based database**, so your data is saved even after restarting the application.
+The project uses an H2 database to store application data.
 
-**H2 Console**
+H2 Console:
 
 ```
 http://localhost:8080/h2-console
 ```
 
-**JDBC URL**
+JDBC URL:
 
 ```
 jdbc:h2:file:./data/tasktracker
 ```
 
-**Username**
+Username:
 
 ```
 sa
 ```
 
-**Password**
+Password:
 
-Leave the password blank.
+```
+Leave blank
+```
 
 ---
 
 # Git Workflow
 
-Our team used GitHub to collaborate throughout the project.
+Our team used GitHub to manage the project.
 
-- `main` contains the stable version of the project.
+- `main` contains the stable version.
 - `dev` is used for development.
-- Each team member creates their own feature branch.
-- Changes are merged into `dev` using pull requests.
-- After testing, the final version is merged into `main`.
+- Every member creates a feature branch from `dev`.
+- Changes are merged into `dev` through pull requests.
+- Only tested code is merged into `main`.
 
 ---
 
-# Future Improvements
+# About the Project
 
-Some features we would like to add in the future include:
-
-- Email reminders for upcoming assignments
-- Calendar integration
-- File uploads for assignments
-- Dark mode
-- Mobile responsive design
-- Notifications
-
----
-
-# Acknowledgements
-
-This application was developed as part of the **BCS430 Senior Project** at **Farmingdale State College**.
-
-Working on this project gave our team experience with GitHub collaboration, Agile development, REST APIs, Spring Boot, and frontend development using HTML, CSS, and JavaScript.
+This project was completed as part of the BCS430 Senior Project course. Throughout development, our team practiced Agile development, Git version control, collaboration, and full-stack web application development using Spring Boot and JavaScript.
