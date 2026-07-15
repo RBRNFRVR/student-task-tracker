@@ -48,8 +48,5 @@ public class SubjectService {
                 .orElseThrow(() -> new IllegalArgumentException("Subject not found"));
         subjectRepo.delete(s);
     }
-<<<<<<< HEAD
 }
-=======
->>>>>>> 86c440f (features)
 
