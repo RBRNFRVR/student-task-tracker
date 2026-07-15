@@ -61,7 +61,7 @@ This project was developed for the BCS430 Senior Project at Farmingdale State Co
 - Personalized greeting
 - View total tasks
 - See completed and incomplete tasks
-- Display upcoming assignments
+- Display upcoming assignment
 
 ---
 
