@@ -1,3 +1,165 @@
+// ===== STATE =====
+let currentUser = null;
+let tasks = [];
+let subjects = [];
+let currentView = 'dashboard';
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', async () => {
+    await checkAuth();
+});
+
+async function checkAuth() {
+    try {
+        const res = await fetch('/api/auth/me');
+        if (res.ok) {
+            currentUser = await res.json();
+            await initApp();
+        } else {
+            showAuthScreen();
+        }
+    } catch {
+        showAuthScreen();
+    }
+}
+
+async function initApp() {
+    document.getElementById('auth-screen').classList.add('hidden');
+    document.getElementById('app').classList.remove('hidden');
+    document.getElementById('sidebar-username').textContent = currentUser.username;
+    setGreeting();
+    await Promise.all([loadSubjects(), loadTasks()]);
+    renderDashboard();
+}
+
+function showAuthScreen() {
+    document.getElementById('auth-screen').classList.remove('hidden');
+    document.getElementById('app').classList.add('hidden');
+}
+
+// ===== AUTH =====
+function showTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.auth-form').forEach(f => f.classList.add('hidden'));
+    event.currentTarget.classList.add('active');
+    document.getElementById(tab + '-form').classList.remove('hidden');
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('login-error');
+    errEl.classList.add('hidden');
+    const body = {
+        username: document.getElementById('login-username').value.trim(),
+        password: document.getElementById('login-password').value
+    };
+    const res = await fetch('/api/auth/login', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    document.getElementById('login-password').value = '';
+    if (res.ok) {
+        currentUser = data;
+        await initApp();
+    } else {
+        errEl.textContent = data.error || 'Login failed';
+        errEl.classList.remove('hidden');
+    }
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    const errEl = document.getElementById('reg-error');
+    const succEl = document.getElementById('reg-success');
+    errEl.classList.add('hidden');
+    succEl.classList.add('hidden');
+    const body = {
+        username: document.getElementById('reg-username').value.trim(),
+        email: document.getElementById('reg-email').value.trim(),
+        password: document.getElementById('reg-password').value
+    };
+    const res = await fetch('/api/auth/register', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (res.ok) {
+        succEl.textContent = 'Account created! You can now log in.';
+        succEl.classList.remove('hidden');
+        document.getElementById('register-form').reset();
+        setTimeout(() => {
+            document.querySelectorAll('.tab-btn')[0].click();
+            document.getElementById('login-username').value = body.username;
+        }, 1200);
+    } else {
+        document.getElementById('reg-password').value = '';
+        errEl.textContent = data.error || 'Registration failed';
+        errEl.classList.remove('hidden');
+    }
+}
+
+async function handleLogout() {
+    await fetch('/api/auth/logout', { method: 'POST' });
+    currentUser = null; tasks = []; subjects = [];
+    showAuthScreen();
+}
+
+// ===== DATA LOADING =====
+async function loadTasks() {
+    const res = await fetch('/api/tasks');
+    if (res.ok) tasks = await res.json();
+}
+
+async function loadSubjects() {
+    const res = await fetch('/api/subjects');
+    if (res.ok) {
+        subjects = await res.json();
+        renderSidebarSubjects();
+        populateSubjectFilters();
+    }
+}
+
+async function loadSummary() {
+    const res = await fetch('/api/tasks/summary');
+    if (res.ok) {
+        const s = await res.json();
+        document.getElementById('sum-total').textContent = s.total;
+        document.getElementById('sum-not-started').textContent = s.notStarted;
+        document.getElementById('sum-in-progress').textContent = s.inProgress;
+        document.getElementById('sum-completed').textContent = s.completed;
+    }
+}
+
+// ===== VIEWS =====
+function showView(name, linkEl) {
+    document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('view-' + name).classList.remove('hidden');
+    if (linkEl) linkEl.classList.add('active');
+    currentView = name;
+    if (name === 'dashboard') renderDashboard();
+    if (name === 'tasks') renderTasks();
+    if (name === 'subjects') renderSubjects();
+}
+
+// ===== DASHBOARD =====
+function renderDashboard() {
+    loadSummary();
+    const upcoming = tasks
+        .filter(t => t.status !== 'COMPLETED')
+        .slice(0, 10);
+    const el = document.getElementById('dashboard-tasks');
+    el.innerHTML = upcoming.length === 0
+        ? emptyState('🎉', 'No pending tasks! Add one to get started.')
+        : upcoming.map(taskCard).join('');
+}
+
+function setGreeting() {
+    const h = new Date().getHours();
+    const g = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
+    document.getElementById('dashboard-greeting').textContent = `${g}, ${currentUser.username}!`;
+}
+
+// ===== TASK LIST =====
 function renderTasks() {
     const status = document.getElementById('filter-status').value;
     const priority = document.getElementById('filter-priority').value;
@@ -326,7 +488,7 @@ function toTaskRequest(t) {
 }
 
 function priorityLabel(p) {
-    return p === 'HIGH' ? '`High' : p === 'MEDIUM' ? 'Medium' : 'Low';
+    return p === 'HIGH' ? '🔴 High' : p === 'MEDIUM' ? '🟡 Medium' : '🟢 Low';
 }
 
 function statusLabel(s) {
