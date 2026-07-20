@@ -4,6 +4,8 @@ Student Task Tracker is a web-based application that helps college students keep
 
 This project was developed for the BCS430 Senior Project at Farmingdale State College.
 
+**Live Demo:** [student-task-tracker-onxv.onrender.com](https://student-task-tracker-onxv.onrender.com/)
+
 ---
 
 # Team Members
